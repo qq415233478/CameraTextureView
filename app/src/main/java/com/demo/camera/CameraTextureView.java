@@ -224,6 +224,10 @@ public class CameraTextureView extends TextureView implements TextureView.Surfac
                 @Override
                 public void run() {
                     if (mWindowManager != null) {
+                        if (mOverlayRoot != null && mOverlayRoot.isAttachedToWindow()) {
+                            WindowManager.LayoutParams overlayLayoutParams = (WindowManager.LayoutParams) mOverlayRoot.getLayoutParams();
+                            mWindowManager.updateViewLayout(mOverlayRoot, detectBounds(overlayLayoutParams));
+                        }
                         WindowManager.LayoutParams layoutParams = (WindowManager.LayoutParams) getLayoutParams();
                         mWindowManager.updateViewLayout(CameraTextureView.this, detectBounds(layoutParams));
                     }
